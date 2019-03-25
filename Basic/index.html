@@ -100,17 +100,60 @@
     <h1>Styles:</h1>
     <div 
       class="element"
-      v-bind:class="{red: boxColors.red, blue: boxColors.blue, green: boxColors.green}" 
-      v-bind:style ="{
+      :class="{red: boxColors.red, blue: boxColors.blue, green: boxColors.green}" 
+      :style ="{
         fontSize: '20px',
         border: '5px solid yellow'
       }"
-      v-on:click="changeBoxColor"> <!--  v-bind:class="['red', 'blue']"-->
+      @click="changeBoxColor"> <!--  v-bind:class="['red', 'blue']"-->
       This is my content !!
     </div>
 
+    <hr>
+    <h1>Computed:</h1>
+
+    <input type="text" v-model='user.name'>
+    <br>
+    <button  @click='toggleActive'>Other Action</button>
+
+    <div>Name: {{ compMessage }}</div>
+    <div>Active: {{isActive()}}</div>
+    
+    <hr>
+    <h1>Watch:</h1>
+    <div>Loading: {{user.loading}}</div>
+
   </div>
+
+  <hr>
+  <h1>Different components and REFS :</h1>
+
+  <div id="app2">
+    <div ref='title'>Hello !</div>
+    <div> Instance 2: {{value}} </div> <br>
+    <button @click='changeValue'>Change</button>
+  </div>
+  <div id="app3">
+    <div>Instance 3: {{value}}</div>
+  </div>
+
+
+  <hr>
+  <h1>Mounting and unMounting and Components:</h1>
+
+  <div id="app4">
+    <name></name>
+  </div>
+
 </body>
+
+
+
+
+
+
+
+
 
 <script>
   new Vue({
@@ -138,7 +181,8 @@
       user: {
         name: 'Vasya',
         age: 15,
-        allowedAge: 18
+        allowedAge: 18,
+        loading: false
       },
 
       usersArray: ['Jane', 'Max', 'Steve'],
@@ -202,9 +246,89 @@
         } else {
           this.boxColors.red = true;
         }
+      },
+      isActive() {
+        return this.user.allowedAge > 18 ? 'Active' : 'Not Active';
+      },
+      toggleActive() {
+        this.greeting = 'New greeting';
+        this.user.allowedAge = this.user.allowedAge > 18 ? 17 : 19;
+      }
+    },
+    computed: { // * It's like getter calculate value and return it back will called only if this.user.name change
+      compMessage() {
+        console.log('Computed run');
+        return this.user.name === 'Vasya' ? 'Welcome' : 'Not allowed';
+      },
+    },
+    watch: { // * Watch on value from data and run if value change
+      greeting(value) {
+        console.log('greeting watcher:', value);
+        this.user.loading = true;
+        setTimeout(() => {
+          this.user.loading = false;
+        }, 3000);
       }
     }
   });
+
+// --------------------------------------------------------------------------------------------------------------
+  const app2 = new Vue({
+    el: '#app2',
+    data: {
+      value: 'instance 2 work!'
+    },
+    methods: {
+      changeValue() {
+        console.log('Ref to title:', this.$refs); // * $refs - object with html elements
+        this.$refs.title.style.color = 'red';
+        this.$refs.title.style.fontSize = '30px';
+        
+        app3.value = 'Changed Value!';
+      }
+    }
+  });
+
+  const app3 = new Vue({
+    el: '#app3',
+    data: {
+      value: 'instance 3 work!'
+    }
+  });
+
+
+  // -----------------------------------------------------------------------------------------------------------
+
+  Vue.component('name', {
+    data() {
+      return {
+        name: 'Child Jack'
+      }
+    },
+    methods: {
+      alertSomething() {
+        alert('Hello there !');
+      }
+    },
+    template: `
+      <div>
+        <div>{{ name }}</div>
+        <button @click="alertSomething">Alert!</button>
+      </div>
+      
+    `
+  });
+
+  const app4 = new Vue({
+    data: {
+      name: 'Jack'
+    }
+  });
+
+  setTimeout(() => {
+    app4.$mount('#app4');  //* Mount component
+  }, 3000);
+
 </script>
 
 <style>
