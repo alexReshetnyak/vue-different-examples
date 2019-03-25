@@ -9,7 +9,106 @@
 </head>
 <body>
   <div id="app">
-    <p>{{greeting}}</p>
+    <p>Binding: {{greeting}}</p>
+    <p>Methods: {{welcome()}}</p>
+    <p>Is It true: {{ isItTrue ? 'true' : 'false'}}</p>
+    <p>Array element: {{array[1]}}</p>
+    <p>Object: {{obj.car}}</p>
+    <p>Function: {{func()}}</p>
+
+    <hr>
+    <h1>V-BIND, V-TEXT, V-HTML:</h1>
+    <img v-bind:src="src" v-bind:alt="alt">
+    <br>
+    <a v-bind:href="link">Go to google</a>
+    <p v-text='directiveText'></p>
+    <div v-html='htmlData'></div>
+    <hr>
+    <h1>V-IF, V-SHOW:</h1>
+    <p v-if='user.age > user.allowedAge'>User enough old : v-if directive (if statement false: remove from dom)</p>
+    <p v-else-if="checkUser()">It's Vasya and he can go, v-else-if</p>
+    <p v-else>User not enough old : v-else directive</p>
+
+    <p v-show="checkUser()">v-show: show element (if expression false element receive display: none)</p>
+
+    <hr>
+    <h1>V-FOR:</h1>
+    <p v-for='(name, index) in usersArray'>
+      {{index}}) {{name}},
+      <div>Hello</div>
+    </p>
+
+    <ul>
+      <li v-for='(car, index) in cars'>
+        {{index}} ) Brand: {{car.brand}}, Car color: {{car.color}}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="(value, key, index) in user">
+        {{index}} - {{key}} - {{value}}
+      </li>
+    </ul>
+
+    <hr>
+    <h1>Re rendering:</h1>
+    <h4>{{user.name}}</h2>
+    <h4 v-once>{{user.name}} v-once: don't update value on re-render</h4>
+    <span v-once>{{updateUser()}}</span>
+
+
+    <hr>
+    <h1>Events:</h1>
+    <h3>{{user.name}}</h3>
+    <button  v-on:click.right='changeUsername("Button name Vasya", $event)'>Change user name by right mouse button click!</button>
+    <br><br>
+
+    <div class="box" v-on:mousemove='setCursorCords'>
+      hover me!
+      <p>x:{{mouseCords.x}}</p>
+      <p>y:{{mouseCords.y}}</p>
+    </div>
+
+    <br><br>
+
+    <form v-on:submit.prevent="handleForm">
+      <input type="text" v-on:keyup.space.enter.g="handleKeyEvent"/> <!-- key press for enter space g -->
+      <button type="submit">Submit</button>
+    </form>
+
+    <hr>
+    <h1>V-MODEL two way binding:</h1>
+
+    <form v-on:submit.prevent="handleSecondForm">
+      <label>Name</label>
+      <input type="text" v-model="formData.name">
+      <br>
+
+      <label>Last Name</label>
+      <input type="text" v-model.trim.lazy="formData.lastName"> <!-- .lazy will  update value after blur event-->
+      <br>
+
+      <label>Age</label>
+      <input type="text" v-model.number="formData.age"> <!-- .number -> change entered value to number if possible -->
+      <br>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <hr>
+
+    <h1>Styles:</h1>
+    <div 
+      class="element"
+      v-bind:class="{red: boxColors.red, blue: boxColors.blue, green: boxColors.green}" 
+      v-bind:style ="{
+        fontSize: '20px',
+        border: '5px solid yellow'
+      }"
+      v-on:click="changeBoxColor"> <!--  v-bind:class="['red', 'blue']"-->
+      This is my content !!
+    </div>
+
   </div>
 </body>
 
@@ -17,9 +116,120 @@
   new Vue({
     el: '#app',
     data: {
-      greeting: 'Hello guys'
+      greeting: 'Hello guys',
+      isItTrue: true,
+      array: ['France', 'Ukraine'],
+      obj: {
+        car: 'Ferrari'
+      },
+      func: () => {
+        return 'Message from function';
+      },
+
+      src: 'https://picsum.photos/200/300/?random',
+      alt: 'Another image',
+      link: 'https://google.com',
+      
+      directiveText: 'Directive Text using v-text',
+      htmlData: '<strong>String converted to Html using v-html</strong>',
+      userAge: 15,
+      allowedAge: 18,
+      
+      user: {
+        name: 'Vasya',
+        age: 15,
+        allowedAge: 18
+      },
+
+      usersArray: ['Jane', 'Max', 'Steve'],
+      cars: [ { brand: 'Mercedes', color: 'silver'}, { brand: 'Ferrari', color: 'red'}, { brand: 'Lada', color: 'cherry'}],
+
+      mouseCords: {
+        x: 0,
+        y: 0
+      },
+
+      formData: {
+        name: '',
+        lastName: '',
+        age: ''
+      },
+
+      boxColors: {
+        red: true,
+        blue: false,
+        green: false
+      }
+    },
+    methods: {
+      welcome() {
+        return 'Hello guys from method' + ' + Data.greeting: ' +  this.greeting;
+      },
+      checkUser() {
+        return this.user.name === 'Vasya' ? true : false;
+      },
+      updateUser() {
+        setTimeout(() => {
+          this.user.name = 'Changed Vasya';
+        }, 3000);
+      },
+      changeUsername(newName, event) {
+        console.log('Click event:', event);
+        this.user.name = newName;
+      },
+      setCursorCords(mouseMoveEvent) {
+        this.mouseCords.x = mouseMoveEvent.clientX;
+        this.mouseCords.y = mouseMoveEvent.clientY;
+      },
+      handleForm(event) {
+        // event.preventDefault();  // *  prevent reload page on submit 
+      },
+      handleKeyEvent({target}) {
+        console.log('Input value:', target.value);
+      },
+      handleSecondForm() {
+        console.log('Form data:', this.formData);
+      },
+      changeBoxColor() {
+        if (this.boxColors.red) {
+          this.boxColors.red = false;
+          this.boxColors.blue = true;
+        } else if (this.boxColors.blue) {
+          this.boxColors.blue = false;
+          this.boxColors.green = true;
+        } else if (this.boxColors.green) {
+          this.boxColors.green = false;
+        } else {
+          this.boxColors.red = true;
+        }
+      }
     }
   });
 </script>
+
+<style>
+  .box {
+    background-color: red;
+    width: 200px;
+    height: 200px;
+  }
+  .element {
+    color: white;
+    background-color: black;
+    padding: 10px;
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .blue {
+    background-color: blue;
+  }
+
+  .green {
+    background-color: green;
+  }
+</style>
 
 </html>
