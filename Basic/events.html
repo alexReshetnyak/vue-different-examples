@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./js/vue.js"></script>
+  <title>VUE</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Re rendering:</h1>
+    <h4>{{user.name}}</h2>
+    <h4 v-once>{{user.name}} v-once: don't update value on re-render</h4>
+    <span v-once>{{updateUser()}}</span>
+
+
+    <hr>
+    <h1>Events:</h1>
+    <h3>{{user.name}}</h3>
+    <button  v-on:click.right='changeUsername("Button name Vasya", $event)'>Change user name by right mouse button click!</button>
+    <br><br>
+
+    <div class="box" v-on:mousemove='setCursorCords'>
+      hover me!
+      <p>x:{{mouseCords.x}}</p>
+      <p>y:{{mouseCords.y}}</p>
+    </div>
+
+    <br><br>
+
+    <form v-on:submit.prevent="handleForm">
+      <input type="text" v-on:keyup.space.enter.g="handleKeyEvent"/> <!-- key press for enter space g -->
+      <button type="submit">Submit</button>
+    </form>
+</body>
+
+
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      greeting: 'Hello guys',
+      
+      user: {
+        name: 'Vasya',
+        age: 15,
+        allowedAge: 18,
+        loading: false
+      },
+
+      mouseCords: {
+        x: 0,
+        y: 0
+      }
+    },
+    methods: {
+      updateUser() {
+        setTimeout(() => {
+          this.user.name = 'Changed Vasya';
+        }, 3000);
+      },
+      changeUsername(newName, event) {
+        console.log('Click event:', event);
+        this.user.name = newName;
+      },
+      setCursorCords(mouseMoveEvent) {
+        this.mouseCords.x = mouseMoveEvent.clientX;
+        this.mouseCords.y = mouseMoveEvent.clientY;
+      },
+      handleForm(event) {
+        // event.preventDefault();  // *  prevent reload page on submit 
+      },
+      handleKeyEvent({target}) {
+        console.log('Input value:', target.value);
+      }
+    }
+  });
+
+</script>
+
+<style>
+  .box {
+    background-color: red;
+    width: 200px;
+    height: 200px;
+  }
+</style>
+
+</html>

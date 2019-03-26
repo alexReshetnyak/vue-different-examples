@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./js/vue.js"></script>
+  <title>VUE Life Cycles Hooks</title>
+</head>
+<body>
+  <div id="app">
+    <div>{{name}}</div>
+    <button @click="updateName">Update Name</button>
+    <br>
+    <button @click="destroyComponent">Destroy Component</button>
+  </div>
+</body>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      name: 'Jack'
+    },
+    methods: {
+      updateName() {
+        this.name = 'Jack updated';
+      },
+      destroyComponent() {
+        this.$destroy();
+      }
+    },
+    beforeCreate() {
+      console.log('Before Created hook');
+    },
+    created() {
+      console.log('Created hook');
+    },
+    beforeMount() {
+      console.log('Before Mount Hook');
+    },
+    mounted() {
+      console.log('Mounted hook');
+    },
+    beforeUpdate() {
+      console.log('Before Update hook');
+    },
+    updated() {
+      console.log('Updated Hook');
+    },
+    beforeDestroy() {
+      console.log('Before Destroy hook');
+    },
+    destroyed() {
+      console.log('Destroyed hook');
+    },
+  });
+</script>
+
+<style>
+</style>
+
+</html>

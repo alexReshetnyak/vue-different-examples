@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./js/vue.js"></script>
+  <title>VUE</title>
+</head>
+<body>
+  <div id="app">
+    <h1>V-BIND, V-TEXT, V-HTML:</h1>
+    <img v-bind:src="src" v-bind:alt="alt">
+    <br>
+    <a v-bind:href="link">Go to google</a>
+    <p v-text='directiveText'></p>
+    <div v-html='htmlData'></div>
+    <hr>
+    <h1>V-IF, V-SHOW:</h1>
+    <p v-if='user.age > user.allowedAge'>User enough old : v-if directive (if statement false: remove from dom)</p>
+    <p v-else-if="checkUser()">It's Vasya and he can go, v-else-if</p>
+    <p v-else>User not enough old : v-else directive</p>
+
+    <p v-show="checkUser()">v-show: show element (if expression false element receive display: none)</p>
+
+    <hr>
+    <h1>V-FOR:</h1>
+    <p v-for='(name, index) in usersArray'>
+      {{index}}) {{name}},
+      <div>Hello</div>
+    </p>
+
+    <ul>
+      <li v-for='(car, index) in cars'>
+        {{index}} ) Brand: {{car.brand}}, Car color: {{car.color}}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="(value, key, index) in user">
+        {{index}} - {{key}} - {{value}}
+      </li>
+    </ul>
+
+    <hr>
+</body>
+
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      greeting: 'Hello guys',
+
+      src: 'https://picsum.photos/200/300/?random',
+      alt: 'Another image',
+      link: 'https://google.com',
+      
+      directiveText: 'Directive Text using v-text',
+      htmlData: '<strong>String converted to Html using v-html</strong>',
+      userAge: 15,
+      allowedAge: 18,
+      
+      user: {
+        name: 'Vasya',
+        age: 15,
+        allowedAge: 18,
+        loading: false
+      },
+
+      usersArray: ['Jane', 'Max', 'Steve'],
+      cars: [ { brand: 'Mercedes', color: 'silver'}, { brand: 'Ferrari', color: 'red'}, { brand: 'Lada', color: 'cherry'}]
+    },
+    methods: {
+      checkUser() {
+        return this.user.name === 'Vasya' ? true : false;
+      }
+    }
+  });
+
+</script>
+
+<style>
+</style>
+
+</html>

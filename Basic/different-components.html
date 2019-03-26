@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./js/vue.js"></script>
+  <title>VUE</title>
+</head>
+<body>
+  <h1>Different components and REFS :</h1>
+
+  <div id="app2">
+    <div ref='title'>Hello !</div>
+    <div> Instance 2: {{value}} </div> <br>
+    <button @click='changeValue'>Change</button>
+  </div>
+  <div id="app3">
+    <div>Instance 3: {{value}}</div>
+  </div>
+
+  <hr>
+  <h1>Mounting and unMounting and Components:</h1>
+
+  <div id="app4">
+    <name></name>
+  </div>
+</body>
+
+<script>
+  const app2 = new Vue({
+    el: '#app2',
+    data: {
+      value: 'instance 2 work!'
+    },
+    methods: {
+      changeValue() {
+        console.log('Ref to title:', this.$refs); // * $refs - object with html elements
+        this.$refs.title.style.color = 'red';
+        this.$refs.title.style.fontSize = '30px';
+        
+        app3.value = 'Changed Value!';
+      }
+    }
+  });
+
+  const app3 = new Vue({
+    el: '#app3',
+    data: {
+      value: 'instance 3 work!'
+    }
+  });
+
+
+  Vue.component('name', {
+    data() {
+      return {
+        name: 'Child Jack'
+      }
+    },
+    methods: {
+      alertSomething() {
+        alert('Hello there !');
+      }
+    },
+    template: `
+      <div>
+        <div>{{ name }}</div>
+        <button @click="alertSomething">Alert!</button>
+      </div>
+    `
+  });
+
+  const app4 = new Vue({
+    data: {
+      name: 'Jack'
+    }
+  });
+
+  setTimeout(() => {
+    app4.$mount('#app4');  //* Mount component
+  }, 3000);
+
+</script>
+
+<style>
+</style>
+
+</html>
