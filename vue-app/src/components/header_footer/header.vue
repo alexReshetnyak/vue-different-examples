@@ -18,14 +18,33 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped> //* scoped : make styles protected
+	header {
+		font-family: 'Roboto', sans-serif;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px 20px;
+		width: 100vw;
+		background-color: #2196F3;
+		border-bottom: 4px solid #607d8b;
+		box-sizing: border-box;
+		color: #ffffff;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
 	#nav {
-		padding: 30px;
+		padding: 10px;
 		a {
 			font-weight: bold;
-			color: #2c3e50;
+			color: #ffffff;
+			
 			&.router-link-exact-active {
-				color: #42b983;
+				color: #10d67d;
+			}
+			&:hover {
+				background-color:  rgb(56, 165, 255);
 			}
 		}
 	}

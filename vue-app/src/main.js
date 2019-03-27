@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import { i18n } from '@/plugins/i18n';
-import Header from './components/header_footer/header.vue';
+import Header from './components/header_footer/Header.vue';
 
 Vue.component('app-header', Header); // * Register component globally
 

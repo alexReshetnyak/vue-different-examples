@@ -1,29 +1,39 @@
 <template>
   <div id="app">
     <app-header></app-header>
-
-    <router-view/>
-
-    <app-footer></app-footer>
+    
+    <div class="container">
+      <router-view/>
+    </div>
+    
+    <compFooter></compFooter>
   </div>
 </template>
 
 <script>
-  import Footer from './components/header_footer/footer.vue';
+  import compFooter from './components/header_footer/Footer.vue';
 
   export default {
     components: {
-      'app-footer': Footer
+      compFooter
     }
   }
 </script>
 
 <style lang="scss">
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
     color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between
+  }
+
+  .container {
+    height: 100%;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
   }
 </style>
