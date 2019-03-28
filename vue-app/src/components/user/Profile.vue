@@ -1,5 +1,5 @@
 <template>
-  <div class="user_profile">
+  <div class="user_profile container">
     <h1>User Information: </h1>
     <ul class="list-group">
       <li class="list-group-item list-group-item-action"><span>Name: </span> {{userName}}</li>
