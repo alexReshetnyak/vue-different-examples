@@ -9,6 +9,9 @@ Vue.component('app-header', Header); // * Register component globally
 
 Vue.config.productionTip = false;
 
+//* Pass data Child to Child
+export const bus = new Vue(); 
+
 new Vue({
   router,
   store,
