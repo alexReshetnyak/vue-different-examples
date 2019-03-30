@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header>
-			Myweb.com
+			Header
 		</header>
 	</div>
 </template>
