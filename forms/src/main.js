@@ -10,6 +10,6 @@ Vue.component('app-footer',Footer)
 export const bus = new Vue();
 
 new Vue({
-    el:'#app',
-    render: h => h(App)
+	el:'#app',
+	render: h => h(App)
 });
