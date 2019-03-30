@@ -7,8 +7,12 @@
 				<button class="btn btn-primary" @click="compToRender = 'compPage'">Page</button>
 				<button class="btn btn-primary" @click="compToRender = 'compContact'">Contact</button>
 			</div>
-			<!-- Dinamic component container -->
-			<component :is="compToRender"></component>
+
+			<!-- To prevent component destroy -->
+			<keep-alive>
+				<!-- Dinamic component container -->
+				<component :is="compToRender"></component>
+			</keep-alive>
 		</div>
 		<app-footer/>
 	</div>
