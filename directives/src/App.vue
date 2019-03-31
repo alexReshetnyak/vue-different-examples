@@ -2,7 +2,21 @@
 	<div>
 		<app-header/>
 		<div class="container">
-			<dir v-awesome="textToRender"></dir>			
+			<div>{{userName}}</div>
+			
+			<!-- <dir v-awesome="2+2"></dir>
+			<br>
+			<br>
+			Arguments:
+			<dir v-awesome:red="textToRender"></dir>
+			<dir v-awesome:blue="textToRender"></dir>
+			<br><br>
+			Modifiers:
+			<dir v-awesome.red.big="textToRender"></dir> -->
+			<dir v-awesome.blue.small="textToRender"></dir>
+			<hr>
+
+			<div v-user-lastname="userLastname"></div>
 		</div>
 		<app-footer/>
 	</div>
@@ -12,7 +26,21 @@
 	export default {
 		data(){
 			return {
-				textToRender:'Dynamic Text from App component'
+				textToRender:'Dynamic Text from App component',
+				userName: 'Jack',
+				userLastname: 'Jones'
+			}
+		},
+		mounted() {
+			setTimeout(() => {
+				this.userName = 'updated jack';
+			}, 3000);
+		},
+		directives: { //* local directive
+			'user-lastname': {
+				bind(el, binding, vnode) {
+					el.innerHTML = binding.value
+				}
 			}
 		}
 	}
