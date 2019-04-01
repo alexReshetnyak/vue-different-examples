@@ -12,7 +12,45 @@
 				<div class="p-3 mb-2 bg-success text-white" v-if="display">Hello 2</div>
 			</transition>
 
+			<transition name="appear">
+				<div class="p-3 mb-2 bg-success text-white" v-show="display">Hello 3</div>
+			</transition>
+
 			<button class="btn btn-primary" @click="display = !display">Toggle animation</button>
+
+			<hr>
+
+			<button class="btn btn-outline-info" @click="status = !status">Toggle Status</button>
+
+			<!-- Mode = out-in say that animation will execute by order -->
+			<transition name="appear" mode="out-in">
+				<div class="p-3 mb-2 bg-success text-white" v-if="!status" key="status_false">STATUS IS FALSE</div>
+				<div class="p-3 mb-2 bg-success text-white" v-else key="status_true">STATUS IS TRUE</div>
+			</transition>
+
+			<hr>
+
+			<button class="btn btn-outline-warning" @click="custom = !custom">CUSTOM</button>
+
+			<transition 
+				name="custom"
+				enter-active-class="customEnter"
+				leave-active-class="customLeave"
+			>
+				<div class="p-3 mb-2 bg-success text-white" v-if="custom">CUSTOM</div>
+			</transition>
+
+			<hr>
+			<button class="btn btn-outline-danger" @click="animate = !animate">ANIMATE CSS</button>
+
+			<transition 
+				name="animate"
+				enter-active-class="animated rotateInDownRight"
+				leave-active-class="animated rollOut"
+			>
+				<div class="p-3 mb-2 bg-success text-white" v-if="animate">ANIMATE CSS</div>
+			</transition>
+
 		</div>
 		<app-footer/>
 	</div>
@@ -22,7 +60,10 @@
 	export default {
 		data() {
 			return {
-				display: false
+				display: false,
+				status: false,
+				custom: false,
+				animate: false
 			}
 		},
 	}
@@ -76,6 +117,19 @@
 		opacity: 0;
 		transition: opacity 0.5s;
 		animation: slideDown 0.5s ease-out;
+	}
+
+	.customEnter {
+		transition: all 1s ease;
+	}
+
+	.customLeave {
+		transition: all 1s ease;
+		opacity: 0;
+	}
+
+	.custom-enter {
+		opacity: 0;
 	}
 
 	@keyframes slideUp {
