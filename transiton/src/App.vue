@@ -83,6 +83,24 @@
 				<div class="p-3 mb-2 bg-warning text-white" v-if="velocity">TOGGLE VELOCITY</div>
 			</transition>
 
+			<hr>
+
+			<button class="btn btn-success" @click="addOne">Add One</button>
+			<input v-model="name">
+
+			<ul class="list-group">
+				<transition-group name="appear2">
+					<li 
+						class="list-group-item" 
+						v-for="(item, index) in list" 
+						:key="item"
+						@click="removeItem(index)"
+					>
+						{{item}}
+					</li>
+				</transition-group>
+			</ul>
+
 		</div>
 		<app-footer/>
 	</div>
@@ -97,10 +115,21 @@
 				custom: false,
 				animate: false,
 				hook: false,
-				velocity: false
+				velocity: false,
+				name: '',
+				list: ['Jack', 'Ron', 'James']
 			}
 		},
 		methods: {
+			removeItem(index) {
+				this.list.splice(index, 1);
+			},
+			addOne() {
+				if (!this.list.includes(this.name)) {
+					this.list.unshift(this.name);
+					this.name = '';
+				}
+			},
 			beforeEnter(el) {
 				console.log('Before Enter Hook');
 				el.style.opacity = 0;
@@ -140,7 +169,7 @@
 			leaveCancelled(el) {
 				console.log('Leave cancelled');
 			}
-		},
+		}
 	}
 </script>
 
@@ -167,14 +196,33 @@
 	}
 
 	.appear-leave {
-
 	}
 
 	.appear-leave-active {
 		transform: translateX(300px);
 		opacity: 0;
-		transition: all 0.5s ease;		
+		transition: all 0.5s ease;
 	}
+
+	.appear-move {
+		transition: transform 0.5s;
+	}
+
+	/* List Animation */
+
+	.list-group-item {
+		transition: all 1s;
+	}
+
+	.appear2-enter, .appear2-leave-to {
+		opacity: 0;
+		transform: translateX(30px);
+	}
+	.appear2-leave-active {
+		position: absolute;
+	}
+
+/* END */
 
 
 	.slideup-enter {
