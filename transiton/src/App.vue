@@ -64,6 +64,25 @@
 				<div class="p-3 mb-2 bg-success text-white" v-if="hook">TOGGLE HOOK</div>
 			</transition>
 
+			<hr>
+
+			<button class="btn btn-outline-info" @click="velocity = !velocity">TOGGLE VELOCITY</button>
+
+			<transition
+			 	@before-enter="beforeEnter"
+				@enter="enter"
+				@after-enter="afterEnter"
+				@enter-cancelled="enterCancelled"
+
+				@before-leave="beforeLeave"
+				@leave="leave"
+				@after-leave="afterLeave"
+				@leave-cancelled="leaveCancelled"
+				:css="false"
+			>
+				<div class="p-3 mb-2 bg-warning text-white" v-if="velocity">TOGGLE VELOCITY</div>
+			</transition>
+
 		</div>
 		<app-footer/>
 	</div>
@@ -77,15 +96,49 @@
 				status: false,
 				custom: false,
 				animate: false,
-				hook: false
+				hook: false,
+				velocity: false
 			}
 		},
 		methods: {
-			beforeEnter() {
+			beforeEnter(el) {
 				console.log('Before Enter Hook');
+				el.style.opacity = 0;
 			},
-			enter() {
-				console.log('Enter Hook');
+			enter(el, done) {
+				Velocity(el, {
+					opacity: 1,
+					fontSize: '20px'
+				}, {
+					duration: 2000,
+					complete: done //* activate next hook
+				});
+			},
+			afterEnter(el) {
+				console.log('Animation done');
+			},
+			enterCancelled(el) { //* will called if animation not done
+				console.log('Enter Cancelled');
+			},
+
+			// * LEAVING HOOKS
+
+			beforeLeave(el) {
+				console.log('Before Leave');
+			},
+			leave(el, done) {
+				Velocity(el, {
+					rotateZ: '100deg'
+				}, {
+					loop: 2,
+					complete: done
+				});
+			},
+			afterLeave(el) {
+				console.log('After leave');
+			},
+			leaveCancelled(el) {
+				console.log('Leave cancelled');
 			}
 		},
 	}
