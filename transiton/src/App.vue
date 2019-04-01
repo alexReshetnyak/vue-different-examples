@@ -51,6 +51,19 @@
 				<div class="p-3 mb-2 bg-success text-white" v-if="animate">ANIMATE CSS</div>
 			</transition>
 
+
+			<hr>
+
+			<button class="btn btn-outline-success" @click="hook = !hook">TOGGLE HOOK</button>
+
+			<transition
+				name="appear"
+				@before-enter="beforeEnter"
+				@enter="enter"
+			>
+				<div class="p-3 mb-2 bg-success text-white" v-if="hook">TOGGLE HOOK</div>
+			</transition>
+
 		</div>
 		<app-footer/>
 	</div>
@@ -63,7 +76,16 @@
 				display: false,
 				status: false,
 				custom: false,
-				animate: false
+				animate: false,
+				hook: false
+			}
+		},
+		methods: {
+			beforeEnter() {
+				console.log('Before Enter Hook');
+			},
+			enter() {
+				console.log('Enter Hook');
 			}
 		},
 	}
