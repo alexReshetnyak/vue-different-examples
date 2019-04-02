@@ -101,12 +101,28 @@
 				</transition-group>
 			</ul>
 
+			<hr>
+
+			<!-- appear - apply animation when element added to dom -->
+			<transition name="slideup" appear>
+				<div class="p-3 mb-2 bg-success text-white" v-if="onload">Hello 2</div>
+			</transition>
+
+
+			<hr>
+
+			<transition name="slideup" appear>
+				<compUser/>
+			</transition>
+
 		</div>
 		<app-footer/>
 	</div>
 </template>
 
 <script>
+import compUser from './Components/User.vue';
+
 	export default {
 		data() {
 			return {
@@ -117,7 +133,8 @@
 				hook: false,
 				velocity: false,
 				name: '',
-				list: ['Jack', 'Ron', 'James']
+				list: ['Jack', 'Ron', 'James'],
+				onload: true
 			}
 		},
 		methods: {
@@ -169,6 +186,9 @@
 			leaveCancelled(el) {
 				console.log('Leave cancelled');
 			}
+		},
+		components: {
+			compUser
 		}
 	}
 </script>
