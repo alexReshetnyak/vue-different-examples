@@ -6,10 +6,16 @@ import Footer from './Components/Header_footer/Footer.vue';
 Vue.component('app-header',Header);
 Vue.component('app-footer',Footer);
 
-Vue.filter('to-uppercase', (value) => {
+Vue.filter('to-uppercase', (value) => {  // * Create filter globally
   return value.toUpperCase();
 }
-); // * Create filter globally
+);
+
+Vue.mixin({
+  created() {
+    console.log('Mixin: Created hook');
+  }
+});
 
 new Vue({
     el:'#app',

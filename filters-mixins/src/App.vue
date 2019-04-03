@@ -2,22 +2,34 @@
 	<div>
 		<app-header/>
 		<div class="container">
+
 			<div>
 				<span>Brand: </span> {{brand | getBrand | to-uppercase}}  <br>
 				<span>Buer: </span> {{buer | to-uppercase}}
 			</div>
+
+			<compUser />
+			<compClient />
+			
 		</div>
 		<app-footer/>
 	</div>
 </template>
 
 <script>
+import compUser from './Components/User.vue';
+import compClient from './Components/Client.vue';
+
 	export default {
 		data() {
 			return {
 				brand: 2,
 				buer: 'Joe'
 			}
+		},
+		components: {
+			compUser,
+			compClient
 		},
 		filters: {
 			getBrand(value) {
