@@ -1,11 +1,11 @@
 <template>
   <header>
-    <div class="container clear">
+    <div class="container space-between">
       <div class="logo">
         <img :src="logoIcon">
       </div>
 
-      <div class="nav">
+      <div class="navigation">
         <img :src="menu">        
       </div>
 

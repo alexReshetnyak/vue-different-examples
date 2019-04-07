@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <dir class="container">
+    <dir class="container center">
       <div>
         <img :src="logoIcon">
 

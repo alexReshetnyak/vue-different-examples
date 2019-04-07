@@ -1,10 +1,16 @@
 <template>
   <div id="app">
     <comp-header />
-    
-    <div>
-      Content
-    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div>
+  <b-button variant="outline-primary">Primary</b-button>
+  <b-button variant="outline-secondary">Secondary</b-button>
+  <b-button variant="outline-success">Success</b-button>
+</div>
 
     <comp-footer />
   </div>
@@ -24,5 +30,5 @@ export default {
 </script>
 
 <style>
-  @import './assets/style.css'; 
+  @import './assets/style.css';
 </style>
