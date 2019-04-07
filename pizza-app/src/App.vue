@@ -5,12 +5,12 @@
     <br>
     <br>
     <br>
-    <br>
-<div>
-  <b-button variant="outline-primary">Primary</b-button>
-  <b-button variant="outline-secondary">Secondary</b-button>
-  <b-button variant="outline-success">Success</b-button>
-</div>
+        <div>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <Btn color="primary">Primary</Btn>
+    </div>
+    <compDrawer />
+
 
     <comp-footer />
   </div>
@@ -19,14 +19,35 @@
 <script>
 import compHeader from './components/header-footer/Header.vue';
 import compFooter from './components/header-footer/Footer.vue';
+import compDrawer from './components/drawer/Drawer.vue';
+import { Btn } from 'mdbvue';
 
 export default {
   name: 'app',
   components: {
     compHeader,
-    compFooter
+    compFooter,
+    Btn,
+    compDrawer
   }
 }
+
+
+
+// mdbNavbar,
+// NavbarNav,
+// NavbarCollapse,
+// mdbNavbarBrand,
+// Modal,
+// ModalHeader,
+// ModalTitle,
+// ModalBody,
+// ModalFooter,
+// Column,
+// Badge,
+// Row,
+// Fa,
+// Btn
 </script>
 
 <style>
