@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <comp-header />
+    <comp-header @toggleMenu="toggleMenu"/>
     <br>
     <br>
     <br>
     <br>
-        <div>
-        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-        <Btn color="primary">Primary</Btn>
+      <div>
+      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+      <Btn color="primary">Primary</Btn>
     </div>
-    <compDrawer />
 
 
+    <compDrawer :open="showSideMenu" @closeDrawer="toggleMenu"/>
     <comp-footer />
   </div>
 </template>
@@ -29,25 +29,19 @@ export default {
     compFooter,
     Btn,
     compDrawer
+  },
+  data() {
+    return {
+      showSideMenu: false
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.showSideMenu = !this.showSideMenu;
+    }
   }
 }
 
-
-
-// mdbNavbar,
-// NavbarNav,
-// NavbarCollapse,
-// mdbNavbarBrand,
-// Modal,
-// ModalHeader,
-// ModalTitle,
-// ModalBody,
-// ModalFooter,
-// Column,
-// Badge,
-// Row,
-// Fa,
-// Btn
 </script>
 
 <style>

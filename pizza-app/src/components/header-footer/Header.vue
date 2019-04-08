@@ -5,7 +5,7 @@
         <img :src="logoIcon">
       </div>
 
-      <div class="navigation">
+      <div class="navigation" @click="toggleMenu">
         <img :src="menu">        
       </div>
 
@@ -22,6 +22,11 @@
       return {
         logoIcon: Logo,
         menu: Menu
+      }
+    },
+    methods: {
+      toggleMenu() {
+        this.$emit('toggleMenu');
       }
     },
   }
