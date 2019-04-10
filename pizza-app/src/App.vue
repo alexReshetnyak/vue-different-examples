@@ -1,17 +1,9 @@
 <template>
   <div id="app">
-    <comp-header @toggleMenu="toggleMenu"/>
-    <br>
-    <br>
-    <br>
-    <br>
-      <div>
-      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <Btn color="primary">Primary</Btn>
-    </div>
+    <comp-header/>
 
+    <comp-featured />
 
-    <compDrawer :open="showSideMenu" @closeDrawer="toggleMenu"/>
     <comp-footer />
   </div>
 </template>
@@ -19,26 +11,14 @@
 <script>
 import compHeader from './components/header-footer/Header.vue';
 import compFooter from './components/header-footer/Footer.vue';
-import compDrawer from './components/drawer/Drawer.vue';
-import { Btn } from 'mdbvue';
+import compFeatured from './components/UI/Featured';
 
 export default {
   name: 'app',
   components: {
+    compFeatured,
     compHeader,
-    compFooter,
-    Btn,
-    compDrawer
-  },
-  data() {
-    return {
-      showSideMenu: false
-    }
-  },
-  methods: {
-    toggleMenu() {
-      this.showSideMenu = !this.showSideMenu;
-    }
+    compFooter
   }
 }
 
