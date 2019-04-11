@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="featured">
     <Carousel
       :per-page="1"
       :mouse-drag="true"
@@ -14,10 +14,12 @@
             <div class="text">
               <div>{{slide.text}}</div>
             </div>
-            <div class="img">
+
+            <div class="image">
               <img :src="slide.img" alt="Pizza">
             </div>
           </div>
+
         </div>
       </Slide>
     </Carousel>
@@ -54,3 +56,9 @@
     },
   }
 </script>
+
+<style scoped>
+  .featured {
+    background-color: black;
+  }
+</style>
