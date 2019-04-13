@@ -15,15 +15,46 @@
         {{button.name}}
       </mdb-btn>
     </div>
+
+    <div class="products_items">
+        <mdb-card
+          v-for="(product, index) in products" 
+          :key="index"
+          v-show="product.type === activeProduct"
+        >
+          <mdb-card-image 
+            :src="require(`../../assets/images/products/${product.img}`)" 
+            alt="Card image cap"
+            :waves="true"
+          >
+          </mdb-card-image>
+          <mdb-card-body>
+            <mdb-card-title>{{product.name}}</mdb-card-title>
+            
+            <mdb-card-text>
+              $ {{product.price}}  
+            </mdb-card-text>
+
+            <mdb-card-text>
+              {{product.desc}}
+            </mdb-card-text>
+          </mdb-card-body>
+        </mdb-card>
+    </div>
   </div>
 </template>
 
 <script>
- import { mdbBtn } from 'mdbvue';
+  import { mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn } from 'mdbvue';
 
   export default {
     components: {
-      mdbBtn
+      mdbBtn,
+      mdbCard,
+      mdbCardImage,
+      mdbCardBody,
+      mdbCardTitle,
+      mdbCardText,
     },
     data() {
       return {
@@ -33,14 +64,18 @@
           { name: 'salat', active: false },
           { name: 'dessert', active: false }
         ],
-        products: []
+        products: [],
+        activeProduct: 'pizza',
+        error: null
       }
     },
     methods: {
       changeMenu(value) {
         this.buttons.forEach(button => {
-          button.active = button.name === value ? true : false; 
+          button.active = button.name === value ? true : false;
         });
+
+        this.activeProduct = value;
       }
     },
     async created() {
@@ -52,7 +87,7 @@
           ...productList[productId] 
         }));
       } catch (error) {
-        console.error(error);
+        this.error = error;
       }
     },
   }
@@ -62,4 +97,21 @@
   .menu_container {
     flex-direction: column;
   }
+
+  .products_items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 32%;
+    margin-bottom: 20px;
+  }
+
+  .card .ripple-parent {
+    overflow: hidden;
+    position: relative;
+  }
+
 </style>
