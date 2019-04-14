@@ -5,9 +5,9 @@
     <div>
       <comp-featured />
       <comp-menu />
+      <comp-call-us />
+      <comp-newsletter />
     </div>
-
-
 
     <comp-footer />
   </div>
@@ -18,6 +18,8 @@ import compHeader from './components/header-footer/Header.vue';
 import compFooter from './components/header-footer/Footer.vue';
 import compFeatured from './components/UI/Featured';
 import compMenu from './components/menu/Menu.vue';
+import compCallUs from './components/callUs/CallUs.vue';
+import compNewsletter from './components/newsletter/Newsletter.vue';
 
 export default {
   name: 'app',
@@ -25,7 +27,9 @@ export default {
     compFeatured,
     compHeader,
     compFooter,
-    compMenu
+    compMenu,
+    compCallUs,
+    compNewsletter
   }
 }
 
