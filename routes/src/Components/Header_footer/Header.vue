@@ -3,9 +3,9 @@
         <header>
             <div class="logo">Myweb.com</div>
             <nav>
-                <span>Home</span>
-                <span>User</span>
-                <span>About us</span>
+                <span> <a href="/">Home</a></span>
+                <span> <a href="/user">User</a></span>
+                <span> <a href="/about">About us</a></span>
             </nav>
         </header>
     </div>
