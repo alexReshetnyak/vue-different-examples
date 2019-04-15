@@ -5,10 +5,10 @@ import AboutContentComp from './Components/About/About_content.vue';
 
 export const routes = [
   { path: '/user', component: UserComp, children: [
-    { path: ':id', component: UserComp }
+    { path: ':id', component: UserComp, name: 'userProfile' }
   ]},
   { path: '/about_us', component: AboutComp, children: [
     { path: 'show', component: AboutContentComp }
   ]},
-  { path: '', component: HomeComp }
+  { path: '', component: HomeComp, name: 'home' }
 ];
