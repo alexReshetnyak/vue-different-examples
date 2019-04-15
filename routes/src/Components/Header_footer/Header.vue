@@ -3,9 +3,9 @@
         <header>
             <div class="logo">Myweb.com</div>
             <nav>
-                <span> <a href="/">Home</a></span>
-                <span> <a href="/user">User</a></span>
-                <span> <a href="/about">About us</a></span>
+                <span> <router-link to="/">Home</router-link></span>
+                <span> <router-link to="/user">User</router-link></span>
+                <span> <router-link to="/about_us">About us</router-link></span>
             </nav>
         </header>
     </div>
