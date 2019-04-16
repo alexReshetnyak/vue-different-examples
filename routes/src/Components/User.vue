@@ -4,6 +4,12 @@
 
         <h3>User ID: {{userId}}</h3>
         <h3>User Name: {{userName}}</h3>
+
+        <hr>
+        <h1>Query params:</h1>
+        <span>User: {{this.$route.query.user}}</span>
+        <span>Some: {{$route.query.some}}</span>
+
         <hr>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -37,6 +43,8 @@ export default {
         }
     },
     created() {
+        console.log(this.$route);
+        
         const { id, name } = this.$route.params;
 
         this.userId = id;
