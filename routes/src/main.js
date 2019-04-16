@@ -30,6 +30,17 @@ const router = new VueRouter({
   }
 });
 
+
+//* Router guards
+router.beforeEach((to, from, next) => {
+  if (to.path === '/user') {
+    next({ path: '/' });
+  }
+
+  //*   next(false); Block navigation
+  next();
+});
+
 new Vue({
     el:'#app',
     router,

@@ -86,13 +86,22 @@ export default {
     data() {
         return {
             userId: null,
-            userName: ''
+            userName: '',
+            allowLeave: false
         }
     },
     methods: {
         navigateHome() {
             this.$router.push({ name: 'home' });
         }
+    },
+    beforeRouteEnter (to, from, next) {
+      console.log('Before Route Enter Hook');
+      next();
+    },
+    beforeRouteLeave (to, from, next) {
+        console.log('Before Route leave hook');
+        next(this.allowLeave);
     },
     created() {
         console.log(this.$route);

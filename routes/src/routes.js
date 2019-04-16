@@ -6,7 +6,9 @@ import AboutContentComp from './Components/About/About_content.vue';
 export const routes = [
   { path: '/user', component: UserComp, children: [
     { path: ':id', component: UserComp, name: 'userProfile' }
-  ]},
+  ], beforeEnter: (to, from, next) => { //* Guard
+    next();
+  }},
   { path: '/about_us', component: AboutComp, children: [
     { path: 'show', component: AboutContentComp }
   ]},
