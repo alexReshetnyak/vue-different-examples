@@ -10,5 +10,6 @@ export const routes = [
   { path: '/about_us', component: AboutComp, children: [
     { path: 'show', component: AboutContentComp }
   ]},
-  { path: '', component: HomeComp, name: 'home' }
+  { path: '', component: HomeComp, name: 'home' },
+  { path: '*', component: HomeComp }
 ];
