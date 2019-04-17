@@ -13,10 +13,11 @@
     export default {
         computed: {
             name() {
-                return this.$store.state.name;
+                // return this.$store.state.name;
+                return this.$store.getters.showName;
             },
             age() {
-                return this.$store.state.age;
+                return this.$store.getters.showAge;
             }
         },
     }

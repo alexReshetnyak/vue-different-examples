@@ -20,14 +20,38 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+// import { mapMutations } from 'vuex';
+
+// export default {
+//     methods: {
+//         addOne() {
+            //    this.$store.dispatch('addOne');
+//             this.$store.commit('addOne');
+//         },
+//         restOne() {
+//             this.$store.commit('restOne');
+//         }
+//     },
+// }
+
+
+// export default {
+//     methods: {
+//         ...mapMutations([
+//             'addOne',
+//             'restOne'
+//         ])
+//     },
+// }
+
 export default {
     methods: {
-        addOne() {
-            this.$store.state.age++;
-        },
-        restOne() {
-            this.$store.state.age--;
-        }
+        ...mapActions([
+            'addOne',
+            'restOne'
+        ])
     },
 }
+
 </script>
