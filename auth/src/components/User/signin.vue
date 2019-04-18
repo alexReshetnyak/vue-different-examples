@@ -39,6 +39,7 @@
         },
         methods: {
             onSubmit () {
+                this.$store.dispatch('signin', this.formdata);
                 // eslint-disable-next-line no-console
                 console.log(this.formdata)
             }
