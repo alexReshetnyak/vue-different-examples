@@ -13,6 +13,9 @@
                         <router-link to="/signin">Sign in</router-link>
                     </li>
                     <li>
+                        <div >Sign Out</div>
+                    </li>
+                    <li>
                         <router-link to="/signup">Sign up</router-link>
                     </li>
                     <li>

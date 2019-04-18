@@ -39,21 +39,22 @@ export default new Vuex.Store({
           console.error(error);
         }
       },
+      
       async signin({ commit }, payload) {
-        // try {
-        //   const { body: authData } = await Vue.http.post(`${FbAuthUrl}/signupNewUser?key=${FbApiKey}`, {
-        //     ...payload,
-        //     returnSecureToken: true
-        //   });
+        try {
+          const { body: authData } = await Vue.http.post(`${FbAuthUrl}/verifyPassword?key=${FbApiKey}`, {
+            ...payload,
+            returnSecureToken: true
+          });
 
-        //   commit('auth', authData);
+          commit('auth', authData);
 
-        //   localStorage.setItem('token', authData.idToken);
-        //   localStorage.setItem('refresh', authData.refreshToken);
-        // } catch (error) {
-        //   // eslint-disable-next-line no-console
-        //   console.error(error);
-        // }
+          localStorage.setItem('token', authData.idToken);
+          localStorage.setItem('refresh', authData.refreshToken);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       }
     }
   })
