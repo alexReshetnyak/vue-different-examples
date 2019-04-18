@@ -27,7 +27,7 @@
             //     'swapName'
             // ])
 
-            ...mapActions([
+            ...mapActions('myName', [
                 'swapName'
             ])
         }

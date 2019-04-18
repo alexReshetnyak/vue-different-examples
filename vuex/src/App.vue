@@ -8,6 +8,8 @@
         <comp-name/>
         <hr>
         <comp-age/>
+        <hr>
+        <comp-state />
       </div>
       
     </div>
@@ -18,6 +20,7 @@ import compProfile from './components/Profile';
 import compDrawer from './components/Drawer';
 import compName from './components/Name';
 import compAge from './components/Age';
+import compState from './components/State';
 
 
 export default {
@@ -25,7 +28,8 @@ export default {
       compProfile,
       compDrawer,
       compName,
-      compAge
+      compAge,
+      compState
     }
 }
 </script>

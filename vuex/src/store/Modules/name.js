@@ -1,4 +1,5 @@
 export const myName = {
+  namespaced: true, // * added name space for this module
   state: {
     name: 'Alex',
   },
