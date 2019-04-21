@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -15,7 +16,9 @@ export default new Vuex.Store({
       refresh: ''
     },
     getters: {
-      
+      isAuth(state) {
+        return !!state.token;
+      }
     },
     mutations: {
       auth(state, authData) {
@@ -67,6 +70,32 @@ export default new Vuex.Store({
           // eslint-disable-next-line no-console
           console.error(error);
         }
+      },
+
+      async refreshToken({ commit }) {
+        const refreshToken = localStorage.getItem('refresh');
+
+        if (!refreshToken) { return; }
+
+        try {
+          const { body: authData } = await Vue.http.post(`https://securetoken.googleapis.com/v1/token?key=${FbApiKey}`, {
+            grant_type: 'refresh_token',
+            refresh_token: refreshToken
+          });
+
+          commit('auth', {
+            idToken: authData.id_token,
+            refreshToken: authData.refresh_token
+          });
+          
+          localStorage.setItem('token', authData.id_token);
+          localStorage.setItem('refresh', authData.refresh_token);
+          // console.log('Response refresh token:', authData);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
+   
       }
     }
   })

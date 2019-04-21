@@ -6,13 +6,21 @@ import SignUp from './components/User/signup.vue'
 import SignIn from './components/User/signin.vue'
 import Dashboard from './components/User/dashboard.vue';
 
-Vue.use(VueRouter)
+import store from './store';
+
+Vue.use(VueRouter);
+
+const preventRoutes = {
+    beforeEnter: (to, from, next) => {
+        store.state.token ? next() : next('/');
+    }
+};
 
 const routes = [
     { path:'/',component:Home },
     { path:'/signin', component: SignIn },
     { path:'/signup', component: SignUp },
-    { path:'/dashboard', component: Dashboard },
+    { path:'/dashboard', component: Dashboard, ...preventRoutes},
 ]
 
 export default new VueRouter({mode: 'history', routes})

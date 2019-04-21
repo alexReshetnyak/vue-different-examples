@@ -62,9 +62,14 @@ header nav ul {
 header nav li {
     font-size: 20px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: #d1d1d1;
     font-weight: 300;
     margin-right: 30px;
+}
+
+header nav li span:hover {
+    cursor: pointer;
+    color: #ffffff;
 }
 
 .content {
@@ -89,10 +94,6 @@ header nav li {
     margin-top: 0px;
 }
 .content.sign hr {
-
-}
-
-form {
 
 }
 
