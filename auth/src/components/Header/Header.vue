@@ -7,19 +7,23 @@
             <nav>
                 <ul>
                     <li>
-                        <router-link to="/">Home</router-link>
+                        <router-link tag="span" to="/">Home</router-link>
                     </li>
                     <li>
-                        <router-link to="/signin">Sign in</router-link>
+                        <router-link tag="span" to="/signin">Sign in</router-link>
                     </li>
                     <li>
-                        <div >Sign Out</div>
+                        <div
+                            :style="{'display': 'inline'}"
+                            @click="signout"
+                        >
+                        Sign Out</div>
                     </li>
                     <li>
-                        <router-link to="/signup">Sign up</router-link>
+                        <router-link tag="span" to="/signup">Sign up</router-link>
                     </li>
                     <li>
-                        <router-link to="/dashboard">Dashboard</router-link>
+                        <router-link tag="span" to="/dashboard">Dashboard</router-link>
                     </li>
                 </ul>
             </nav>
@@ -29,6 +33,10 @@
 
 <script>
     export default {
-        
+        methods: {
+            signout() {
+                this.$store.commit('logout'); // * commit like sync dispatch
+            }
+        },
     }
 </script>

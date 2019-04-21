@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import router from './routes';
+
 Vue.use(Vuex);
 
 const FbAuthUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty';
@@ -16,11 +18,21 @@ export default new Vuex.Store({
       
     },
     mutations: {
-     auth(state, authData) {
-       state.email = authData.email;
-       state.token = authData.idToken;
-       state.refresh = authData.refreshToken;
-     }
+      auth(state, authData) {
+        state.email = authData.email;
+        state.token = authData.idToken;
+        state.refresh = authData.refreshToken;
+      },
+      logout(state) {
+        state.email = null;
+        state.token = null;
+        state.refresh = null;
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('refresh');
+
+        router.push('/');
+      }
     },
     actions: {
       async signup({ commit }, payload) {
