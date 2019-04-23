@@ -9,9 +9,13 @@
 
       <div class="login">
         <a href="/signin">
-          <img :src="require('../../assets/images/login.png')" alt="login">
+          <img :src="require('../../assets/images/login.png')" alt="login" />
         </a>
       </div>
     </div>
   </header>
 </template>
+
+<script>
+export default {};
+</script>
