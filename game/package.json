@@ -12,14 +12,15 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "mdbvue": "^5.1.2",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3",
-    "vuex": "^3.0.1",
-    "mdbvue": "^5.1.2",
     "vue-carousel": "^0.18.0",
     "vue-resource": "^1.5.1",
-    "vue-scroll-reveal": "^1.0.11"
+    "vue-router": "^3.0.3",
+    "vue-scroll-reveal": "^1.0.11",
+    "vuelidate": "^0.7.4",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",
