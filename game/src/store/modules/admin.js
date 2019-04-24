@@ -1,5 +1,7 @@
 import Vue from "vue";
 
+import router from '../../router';
+
 const FbAuth = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
 const FbApiKey = "AIzaSyB7gcJeG269SvgiqPxlawt6gCtdmaK-vS0";
 
@@ -12,25 +14,40 @@ export const admin = {
     authFailed: false
   },
 
-  getters: {},
+  getters: {
+    isAuth(state) {
+      return state.token ? true : false;
+    }
+  },
 
   mutations: {
     authUser(state, authData) {
       state.token = authData.idToken;
       state.refresh = authData.refreshToken;
+
+      authData.type === 'signin' && router.push('/dashboard');
     },
     authFailed(state, type) {
-      if (type === 'reset') {
-        
+      if (type === "reset") {
+        state.authFailed = false;
       } else {
         state.authFailed = true;
       }
+    },
+    logoutUser(state) {
+      state.token = null;
+      state.refresh = null;
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("refresh");
+
+      router.push('/');
     }
   },
 
   actions: {
     async signin({ commit }, payload) {
-      try { 
+      try {
         const { body: authData } = await Vue.http.post(
           `${FbAuth}/verifyPassword?key=${FbApiKey}`,
           {
@@ -47,7 +64,7 @@ export const admin = {
         localStorage.setItem("token", authData.idToken);
         localStorage.setItem("refresh", authData.refreshToken);
       } catch (error) {
-        commit('authFailed');
+        commit("authFailed");
       }
     }
   }
