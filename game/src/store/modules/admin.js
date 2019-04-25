@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import router from '../../router';
+import router from "../../router";
 
 const FbAuth = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
 const FbApiKey = "AIzaSyB7gcJeG269SvgiqPxlawt6gCtdmaK-vS0";
@@ -11,12 +11,16 @@ export const admin = {
   state: {
     token: null,
     refresh: null,
-    authFailed: false
+    authFailed: false,
+    refreshLoading: true
   },
 
   getters: {
     isAuth(state) {
       return state.token ? true : false;
+    },
+    refreshLoading(state) {
+      return state.refreshLoading;
     }
   },
 
@@ -25,7 +29,7 @@ export const admin = {
       state.token = authData.idToken;
       state.refresh = authData.refreshToken;
 
-      authData.type === 'signin' && router.push('/dashboard');
+      authData.type === "signin" && router.push("/dashboard");
     },
     authFailed(state, type) {
       if (type === "reset") {
@@ -41,7 +45,10 @@ export const admin = {
       localStorage.removeItem("token");
       localStorage.removeItem("refresh");
 
-      router.push('/');
+      router.push("/");
+    },
+    refreshLoading(state) {
+      state.refreshLoading = false;
     }
   },
 
@@ -65,6 +72,36 @@ export const admin = {
         localStorage.setItem("refresh", authData.refreshToken);
       } catch (error) {
         commit("authFailed");
+      }
+    },
+    async refreshToken({ commit }) {
+      const refreshToken = localStorage.getItem("refresh");
+
+      if (refreshToken) {
+        try {
+          const { body: authData } = await Vue.http.post(
+            `https://securetoken.googleapis.com/v1/token?key=${FbApiKey}`,
+            {
+              grant_type: "refresh_token",
+              refresh_token: refreshToken
+            }
+          );
+
+          commit("authUser", {
+            idToken: authData.id_token,
+            refreshToken: authData.refresh_token,
+            type: "refresh"
+          });
+
+          commit("refreshLoading");
+
+          localStorage.setItem("token", authData.id_token);
+          localStorage.setItem("refresh", authData.refresh_token);
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        commit("refreshLoading");
       }
     }
   }

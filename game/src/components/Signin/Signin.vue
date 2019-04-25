@@ -98,7 +98,7 @@ export default {
     }
   },
   destroyed() {
-    this.$store.commit('admin/authFailed', 'reset');
+    this.$store.commit("admin/authFailed", "reset");
   }
 };
 </script>
