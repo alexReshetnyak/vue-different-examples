@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
 import Vuelidate from "vuelidate";
+import wysiwyg from "vue-wysiwyg";
 
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbvue/build/css/mdb.css";
@@ -23,6 +24,9 @@ Vue.http.options.root = "";
 
 // * VALIDATION
 Vue.use(Vuelidate);
+
+// * What you see is what you get
+Vue.use(wysiwyg, {});
 
 new Vue({
   router,

@@ -42,11 +42,10 @@ const routes = [
   },
   {
     path: "/dashboard",
-    name: "dashboard",
     component: () => import("./components/Dashboard/Dashboard.vue"),
     ...authGuard,
     children: [
-      { path: "/", component: MainDashboard },
+      { path: "/", name: "dashboard", component: MainDashboard },
       { path: "add_posts", component: AddPosts },
       { path: "post_list", component: PostList }
     ]
