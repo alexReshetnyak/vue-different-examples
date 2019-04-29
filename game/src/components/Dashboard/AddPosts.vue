@@ -77,21 +77,53 @@
 
       <button type="submit">Add Post</button>
     </form>
+
+
+    <mdb-btn color="primary" @click.native="dialog = true">Open diolog</mdb-btn>
+    <mdb-modal :show="dialog" @close="dialog = false">
+      <mdb-modal-header>
+        <mdb-modal-title>Confiramtion</mdb-modal-title>
+      </mdb-modal-header>
+      <mdb-modal-body>
+        Your post has no content, are you sure you want to post this?
+      </mdb-modal-body>
+      <mdb-modal-footer>
+        <mdb-btn color="secondary" @click.native="dialog = false">Close</mdb-btn>
+        <mdb-btn color="primary">Save changes</mdb-btn>
+      </mdb-modal-footer>
+    </mdb-modal>
   </div>
 </template>
 
 <script>
-import { required, maxLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators';
+import { 
+  mdbModal, 
+  mdbModalHeader, 
+  mdbModalTitle, 
+  mdbModalBody, 
+  mdbModalFooter, 
+  mdbBtn 
+} from 'mdbvue';
 
 export default {
+  components: {
+    mdbModal,
+    mdbModalHeader,
+    mdbModalTitle,
+    mdbModalBody,
+    mdbModalFooter,
+    mdbBtn
+  },
   data() {
     return {
       formData: {
-      title: "",
-      desc: "",
-      content: "",
-      rating: ""
-    }
+        title: "",
+        desc: "",
+        content: "",
+        rating: ""
+      },
+      dialog: false
     }
   },
   validations: {
@@ -109,13 +141,24 @@ export default {
   },
   methods: {
     submitHandler() {
-      
+      if (!this.$v.$invalid) {
+        if (this.formData.content === "") {
+          
+        } else {
+          this.addPost();
+        }
+      } else {
+        
+      }
+    },
+    addPost() {
+
     }
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 
 h1 {
@@ -127,5 +170,9 @@ h1 {
   select {
     border: 1px solid red;
   }
+}
+
+.modal-dialog {
+  margin: 9rem auto;
 }
 </style>

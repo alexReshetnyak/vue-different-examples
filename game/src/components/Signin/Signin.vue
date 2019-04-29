@@ -114,4 +114,8 @@ h1 {
     border: 1px solid red;
   }
 }
+
+.signin_container {
+  min-height: 650px;
+}
 </style>
