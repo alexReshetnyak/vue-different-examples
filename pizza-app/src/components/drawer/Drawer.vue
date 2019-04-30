@@ -23,11 +23,11 @@
 import compBackdrop from '@/components/UI/Backdrop.vue';
 
 export default {
-  props: {
-    open: Boolean
-  },
   components: {
     compBackdrop
+  },
+  props: {
+    open: Boolean
   },
   data() {
     return {
