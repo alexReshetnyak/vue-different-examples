@@ -59,7 +59,11 @@
       <button type="submit">Add Post</button>
     </form>
 
-    <comp-modal :open="dialog" @close="dialog = false"/>
+    <comp-modal
+      :open="dialog"
+      @close="dialogOnCancel"
+      @confirm="dialogOnConfirm"
+    />
   </div>
 </template>
 
@@ -79,7 +83,7 @@ export default {
         content: "",
         rating: ""
       },
-      dialog: true
+      dialog: false
     };
   },
   validations: {
@@ -89,7 +93,7 @@ export default {
       },
       desc: {
         required,
-        maxLength: maxLength(10)
+        maxLength: maxLength(100)
       },
       content: {},
       rating: {}
@@ -99,11 +103,20 @@ export default {
     submitHandler() {
       if (!this.$v.$invalid) {
         if (this.formData.content === "") {
+          this.dialog = true;
         } else {
           this.addPost();
         }
       } else {
+        alert("This not ready yeat");
       }
+    },
+    dialogOnCancel() {
+      this.dialog = false;
+    },
+    dialogOnConfirm() {
+      this.dialog = false;
+      this.addPost();
     },
     addPost() {}
   }

@@ -8,10 +8,10 @@
         Your post has no content, are you sure you want to post this?
       </mdb-modal-body>
       <mdb-modal-footer>
-        <mdb-btn color="primary" @click.native="closeModal">
+        <mdb-btn color="white" @click.native="closeModal">
           Oop, I want to add it.
         </mdb-btn>
-        <mdb-btn color="primary">Yes I'm sure</mdb-btn>
+        <mdb-btn color="danger" @click.native="confirm">Yes I'm sure</mdb-btn>
       </mdb-modal-footer>
     </mdb-modal>
   </div>
@@ -47,6 +47,9 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close");
+    },
+    confirm() {
+      this.$emit("confirm");
     }
   },
   created() {
