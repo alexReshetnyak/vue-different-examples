@@ -20,7 +20,7 @@ Vue.config.productionTip = false;
 
 // * VUE RESOURCE
 Vue.use(VueResource);
-Vue.http.options.root = "";
+Vue.http.options.root = "https://vue-game-30f95.firebaseio.com/";
 
 // * VALIDATION
 Vue.use(Vuelidate);

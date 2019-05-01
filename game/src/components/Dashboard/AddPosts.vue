@@ -3,6 +3,19 @@
     <h1>Add Post</h1>
 
     <form @submit.prevent="submitHandler">
+
+      <div v-if="imageUpload">
+        <img :src="imageUpload" alt="Uploaded image">
+      </div>
+
+      <div class="input_fielld">
+        <input
+          type="file"
+          @change="processFile($event)"
+          ref="myFileInput"
+        />
+      </div>
+
       <div class="input_field" :class="{ invalid: $v.formData.title.$error }">
         <label>Title</label>
 
@@ -64,6 +77,10 @@
       @close="dialogOnCancel"
       @confirm="dialogOnConfirm"
     />
+
+    <div v-if="addpost" class="post_successfull">
+      Your post was posted
+    </div>
   </div>
 </template>
 
@@ -81,7 +98,8 @@ export default {
         title: "",
         desc: "",
         content: "",
-        rating: ""
+        rating: "",
+        img: ""
       },
       dialog: false
     };
@@ -97,6 +115,22 @@ export default {
       },
       content: {},
       rating: {}
+    }
+  },
+  computed: {
+    addpost() {
+      const status = this.$store.getters["admin/addPostStatus"];
+      if (status) {
+        this.clearPost();
+        this.$store.commit("admin/clearImageUpload");
+      }
+      return status;
+    },
+    imageUpload() {
+      const imgUrl = this.$store.getters["admin/imageUpload"];
+      this.formData.img = imgUrl;
+
+      return imgUrl;
     }
   },
   methods: {
@@ -118,8 +152,30 @@ export default {
       this.dialog = false;
       this.addPost();
     },
-    addPost() {}
-  }
+    addPost() {
+      this.$store.dispatch("admin/addPost", this.formData);
+    },
+    clearPost() {
+      this.$v.$reset(); // * clear all validation information
+      
+      this.$refs.myFileInput.value = ""; // * clear image input
+
+      this.formData = {
+        title: "",
+        desc: "",
+        content: "",
+        rating: ""
+      };
+    },
+    processFile(event) {
+      const file = event.target.files[0];
+      this.$store.dispatch("admin/imageUpload", file);
+    }
+  },
+
+  destroyed() {
+    this.$store.commit("admin/clearImageUpload");
+  },
 };
 </script>
 

@@ -12,7 +12,9 @@ export const admin = {
     token: null,
     refresh: null,
     authFailed: false,
-    refreshLoading: true
+    refreshLoading: true,
+    addpost: false,
+    imageUpload: null
   },
 
   getters: {
@@ -21,6 +23,12 @@ export const admin = {
     },
     refreshLoading(state) {
       return state.refreshLoading;
+    },
+    addPostStatus(state) {
+      return state.addpost;
+    },
+    imageUpload(state) {
+      return state.imageUpload;
     }
   },
 
@@ -49,6 +57,18 @@ export const admin = {
     },
     refreshLoading(state) {
       state.refreshLoading = false;
+    },
+    addPost(state) {
+      state.addpost = true;
+    },
+    clearAddPost(state) {
+      state.addpost = false;
+    },
+    imageUpload(state, imageData) {
+      state.imageUpload = imageData.secure_url;
+    },
+    clearImageUpload(state) {
+      state.imageUpload = null;
     }
   },
 
@@ -102,6 +122,47 @@ export const admin = {
         }
       } else {
         commit("refreshLoading");
+      }
+    },
+    // *  context
+    async addPost({ commit, state }, payload) {
+      try {
+        await Vue.http.post(`posts.json?auth=${state.token}`, payload);
+
+        commit("addPost");
+
+        setTimeout(() => {
+          commit("clearAddPost");
+        }, 3000);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async imageUpload({ commit }, payload) {
+      const CLOUDINARY_URL =
+        "https://api.cloudinary.com/v1_1/dul2a0sdh/image/upload";
+      const CLOUDINARY_PRESET = "ml_default";
+
+      const formData = new FormData();
+
+      formData.append("file", payload);
+      formData.append("upload_preset", CLOUDINARY_PRESET);
+
+      try {
+        const { body: response } = await Vue.http.post(
+          CLOUDINARY_URL,
+          formData,
+          {
+            headers: {
+              "Content-type": "application/x-www-form-urlencoded"
+            }
+          }
+        );
+
+        commit("imageUpload", response);
+      } catch (error) {
+        console.error(error);
       }
     }
   }
