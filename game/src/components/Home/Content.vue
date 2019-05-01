@@ -4,16 +4,21 @@
       <mdb-card v-for="(post, index) in posts" :key="index">
         <mdb-card-image
           :waves="true"
-          :src="require(`../../assets/images/featured/${post.img}`)"
+          :src="post.img"
+          v-if="post.img"
           alt="Game"
         ></mdb-card-image>
         <mdb-card-body>
           <mdb-card-title>{{ post.title }}</mdb-card-title>
           <mdb-card-text>
-            {{ post.description }}
+            {{ post.desc }}
           </mdb-card-text>
 
-          <app-button type="link" linkTo="" :addClass="['small_link']">
+          <app-button 
+            type="link" 
+            linkTo="`posts/${post.id}`" 
+            :addClass="['small_link']"
+          >
             See review
           </app-button>
         </mdb-card-body>
@@ -23,7 +28,6 @@
 </template>
 
 <script>
-import posts from "../../assets/posts.js";
 import {
   mdbCard,
   mdbCardImage,
@@ -40,11 +44,16 @@ export default {
     mdbCardTitle,
     mdbCardText
   },
-  data() {
-    return {
-      posts
-    };
-  }
+  computed: {
+    posts() {
+      return this.$store.getters["posts/getAllPosts"];
+    }
+  },
+  created() {
+    this.$store.dispatch("posts/getAllPosts", {
+      limit: 3
+    });
+  },
 };
 </script>
 

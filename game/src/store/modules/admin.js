@@ -40,11 +40,7 @@ export const admin = {
       authData.type === "signin" && router.push("/dashboard");
     },
     authFailed(state, type) {
-      if (type === "reset") {
-        state.authFailed = false;
-      } else {
-        state.authFailed = true;
-      }
+      state.authFailed = type === "reset" ? false : true;
     },
     logoutUser(state) {
       state.token = null;
@@ -97,31 +93,31 @@ export const admin = {
     async refreshToken({ commit }) {
       const refreshToken = localStorage.getItem("refresh");
 
-      if (refreshToken) {
-        try {
-          const { body: authData } = await Vue.http.post(
-            `https://securetoken.googleapis.com/v1/token?key=${FbApiKey}`,
-            {
-              grant_type: "refresh_token",
-              refresh_token: refreshToken
-            }
-          );
+      if (!refreshToken) {
+        return commit("refreshLoading");
+      }
 
-          commit("authUser", {
-            idToken: authData.id_token,
-            refreshToken: authData.refresh_token,
-            type: "refresh"
-          });
+      try {
+        const { body: authData } = await Vue.http.post(
+          `https://securetoken.googleapis.com/v1/token?key=${FbApiKey}`,
+          {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken
+          }
+        );
 
-          commit("refreshLoading");
+        commit("authUser", {
+          idToken: authData.id_token,
+          refreshToken: authData.refresh_token,
+          type: "refresh"
+        });
 
-          localStorage.setItem("token", authData.id_token);
-          localStorage.setItem("refresh", authData.refresh_token);
-        } catch (error) {
-          console.error(error);
-        }
-      } else {
         commit("refreshLoading");
+
+        localStorage.setItem("token", authData.id_token);
+        localStorage.setItem("refresh", authData.refresh_token);
+      } catch (error) {
+        console.error(error);
       }
     },
     // *  context
