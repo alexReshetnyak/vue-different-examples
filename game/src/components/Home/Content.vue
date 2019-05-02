@@ -14,15 +14,21 @@
             {{ post.desc }}
           </mdb-card-text>
 
-          <app-button 
-            type="link" 
-            linkTo="`posts/${post.id}`" 
+          <app-button
+            type="link"
+            linkTo="`posts/${post.id}`"
             :addClass="['small_link']"
           >
             See review
           </app-button>
         </mdb-card-body>
       </mdb-card>
+    </div>
+
+    <div class="load_more">
+      <app-button type="btn" :addClass="['small_link']" :action="loadMore">
+        Load more
+      </app-button>
     </div>
   </div>
 </template>
@@ -49,11 +55,18 @@ export default {
       return this.$store.getters["posts/getAllPosts"];
     }
   },
+  methods: {
+    loadMore() {
+      this.$store.dispatch("posts/getAllPosts", {
+        limit: this.posts.length + 3
+      });
+    }
+  },
   created() {
     this.$store.dispatch("posts/getAllPosts", {
       limit: 3
     });
-  },
+  }
 };
 </script>
 

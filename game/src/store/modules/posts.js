@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from "vue";
 
 export const posts = {
   namespaced: true,
@@ -7,9 +7,7 @@ export const posts = {
   },
 
   getters: {
-    getAllPosts(state) {
-      return state.homePosts;
-    }
+    getAllPosts: state => state.homePosts
   },
 
   mutations: {

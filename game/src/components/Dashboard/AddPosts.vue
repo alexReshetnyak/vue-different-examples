@@ -3,17 +3,12 @@
     <h1>Add Post</h1>
 
     <form @submit.prevent="submitHandler">
-
       <div v-if="imageUpload">
-        <img :src="imageUpload" alt="Uploaded image">
+        <img :src="imageUpload" alt="Uploaded image" />
       </div>
 
       <div class="input_fielld">
-        <input
-          type="file"
-          @change="processFile($event)"
-          ref="myFileInput"
-        />
+        <input type="file" @change="processFile($event)" ref="myFileInput" />
       </div>
 
       <div class="input_field" :class="{ invalid: $v.formData.title.$error }">
@@ -127,10 +122,12 @@ export default {
       return status;
     },
     imageUpload() {
-      const imgUrl = this.$store.getters["admin/imageUpload"];
-      this.formData.img = imgUrl;
-
-      return imgUrl;
+      return this.$store.getters["admin/imageUpload"];
+    }
+  },
+  watch: {
+    imageUpload(newValue) {
+      this.formData.img = newValue;
     }
   },
   methods: {
@@ -157,7 +154,7 @@ export default {
     },
     clearPost() {
       this.$v.$reset(); // * clear all validation information
-      
+
       this.$refs.myFileInput.value = ""; // * clear image input
 
       this.formData = {
@@ -175,7 +172,7 @@ export default {
 
   destroyed() {
     this.$store.commit("admin/clearImageUpload");
-  },
+  }
 };
 </script>
 
