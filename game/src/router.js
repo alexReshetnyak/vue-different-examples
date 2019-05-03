@@ -51,6 +51,10 @@ const routes = [
     ]
   },
   {
+    path: "/post/:id",
+    component: () => import("./components/Post/Post.vue")
+  },
+  {
     path: "/signin",
     name: "signin",
     ...authGuard,

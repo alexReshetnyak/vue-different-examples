@@ -16,7 +16,7 @@
 
           <app-button
             type="link"
-            linkTo="`posts/${post.id}`"
+            :linkTo="`post/${post.id}`"
             :addClass="['small_link']"
           >
             See review
@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card {
   width: 30%;
   margin-bottom: 25px;
@@ -78,7 +78,7 @@ export default {
   img {
     min-width: 100%;
     object-fit: cover;
-    height: 180px;
+    height: 380px;
   }
 }
 </style>
