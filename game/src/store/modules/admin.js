@@ -14,7 +14,8 @@ export const admin = {
     authFailed: false,
     refreshLoading: true,
     addpost: false,
-    imageUpload: null
+    imageUpload: null,
+    posts: null
   },
 
   getters: {
@@ -29,7 +30,8 @@ export const admin = {
     },
     imageUpload(state) {
       return state.imageUpload;
-    }
+    },
+    getAdminPosts: state => state.posts
   },
 
   mutations: {
@@ -65,7 +67,8 @@ export const admin = {
     },
     clearImageUpload(state) {
       state.imageUpload = null;
-    }
+    },
+    getAdminPosts: (state, posts) => (state.posts = posts)
   },
 
   actions: {
@@ -157,6 +160,17 @@ export const admin = {
         );
 
         commit("imageUpload", response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getAdminPosts({ commit }) {
+      try {
+        const { body: res } = await Vue.http.get("posts.json");
+
+        const posts = Object.keys(res).map(id => ({ id, ...res[id] }));
+        commit("getAdminPosts", posts.reverse());
       } catch (error) {
         console.error(error);
       }
