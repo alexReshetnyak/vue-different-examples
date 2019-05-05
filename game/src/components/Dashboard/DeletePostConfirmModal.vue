@@ -23,10 +23,10 @@ export default {
   data() {
     return {
       dialog: false,
-      title: "Confiramtion",
-      body: "Your post has no content, are you sure you want to post this?",
-      closeBtnText: "Oop, I want to add it.",
-      confirmBtnText: "Yes I'm sure"
+      title: "Confirm delete",
+      body: "Are you sure you want to delete this post?",
+      closeBtnText: "No, do not delete",
+      confirmBtnText: "Yes, delete"
     };
   },
   methods: {

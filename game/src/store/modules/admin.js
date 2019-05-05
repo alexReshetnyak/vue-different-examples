@@ -174,6 +174,18 @@ export const admin = {
       } catch (error) {
         console.error(error);
       }
+    },
+
+    async deletePost({ commit, state }, payload) {
+      try {
+        await Vue.http.delete(`posts/${payload}.json?auth=${state.token}`);
+
+        const newPosts = state.posts.filter(post => post.id !== payload);
+
+        commit("getAdminPosts", newPosts);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 };
