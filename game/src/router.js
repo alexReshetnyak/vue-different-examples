@@ -63,7 +63,8 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "./components/Signin/Signin.vue")
-  }
+  },
+  { path: "*", component: () => import("./components/404/NotFound.vue") }
 ];
 
 export default new Router({
